@@ -39,7 +39,7 @@ plot(pr.out$x[,1:2],col=(km.clusters+1),pch=20,cex=2,main="PC1 and PC2 Biplot")
 plot(pr.out$x[,c(1,3)],col=(km.clusters+1),pch=20,cex=2, main="PC1 and PC3 Biplot")
 
 
-##alternatively using ggplot 
+#Alternative Plot using ggplot 
 # Add cluster assignments to the biplot
 clusters <- as.factor(km.clusters)
 # Create a PCA biplot with cluster colors
