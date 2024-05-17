@@ -1,4 +1,4 @@
-# Wine-Clustering
+# Wine - PCA & Clustering
 Unsupervised learning! Using Principal component analysis for dimension reduction and Clustering analysis.
 
 This dataset is adapted from the Wine Data Set from https://archive.ics.uci.edu/ml/datasets/wine by removing the information about the types of wine for unsupervised learning.
