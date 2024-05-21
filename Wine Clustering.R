@@ -1,5 +1,5 @@
 rm(list = ls())
-setwd("C:/Users/micah/OneDrive/Documents/R/Wine clustering")
+setwd("C:/Users/.../R/Wine clustering")
 
 data1 <- read.csv("~/R/Wine clustering/wine-clustering.csv")
 
@@ -8,8 +8,7 @@ dim(data1)
 #check for missing data
 sum(is.na(data1))
 
-####Principal component analysis ####
-
+####Principal component analysis####
 pr.out <- prcomp(data1, scale=TRUE)
 summary(pr.out)
 
