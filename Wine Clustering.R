@@ -1,0 +1,60 @@
+rm(list = ls())
+setwd("C:/Users/micah/OneDrive/Documents/R/Wine clustering")
+
+data1 <- read.csv("~/R/Wine clustering/wine-clustering.csv")
+
+dim(data1)
+
+#check for missing data
+sum(is.na(data1))
+
+####Principal component analysis ####
+
+pr.out <- prcomp(data1, scale=TRUE)
+summary(pr.out)
+
+par(mfrow = c(1,1))  # Reset layout to single plot
+options(repr.plot.width = 8, repr.plot.height = 6)  #Adjust plot size
+biplot(pr.out,scale = 0, col = c("blue", "red"),cex=0.8)
+
+pr.var <- pr.out$sdev^2
+#compute the proportion of variance explained
+pve <- pr.var/sum(pr.var)
+
+#scree plots
+plot(pve, xlab="Principal components",ylab="Proportion of variance explained",
+     ylim=c(0,1),type="b") 
+
+#Extract the first 3 Principal components
+Newdata <- as.data.frame(pr.out$x[,1:4])
+
+#CLUSTERING 
+
+sd.data <- scale(Newdata)
+
+#Hierarchical clustering 
+data.dist=dist(sd.data)
+plot(hclust(data.dist),main="Complete Linkage",xlab ="",sub="",ylab ="")
+abline(h=6.5,col="red") #therefore we can consider 3 clusters
+
+#K-means Clustering 
+set.seed(2)
+km.out <- kmeans(sd.data,3,nstart =20)
+km.clusters <-  km.out$cluster
+plot(pr.out$x[,1:2],col=(km.clusters+1),pch=20,cex=2,main="PC1 and PC2 Biplot")
+plot(pr.out$x[,c(1,3)],col=(km.clusters+1),pch=20,cex=2, main="PC1 and PC3 Biplot")
+
+
+##alternatively using ggplot 
+# Add cluster assignments to the biplot
+clusters <- as.factor(km.clusters)
+# Create a PCA biplot with cluster colors
+library(ggplot2)
+ggplot(Newdata, aes(x = PC1, y = PC2, color = clusters)) +
+  geom_point(size = 3) +
+  scale_color_manual(values = c("blue", "green", "red")) +  # Customize cluster colors
+  labs(x = "PC1", y = "PC2", color = "Cluster") +
+  ggtitle("Clustered Principal components")
+
+
+
