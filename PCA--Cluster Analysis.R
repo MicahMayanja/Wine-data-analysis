@@ -41,7 +41,7 @@ dim(Newdata)
 #Hierarchical clustering 
 data.dist=dist(Newdata) #for Euclidean distance calculations
 plot(hclust(data.dist),main="Complete Linkage",xlab ="",sub="",ylab ="")
-abline(h=6.5,col="red") #therefore we can consider 3 clusters
+abline(h=8,col="red") #therefore we can consider 3 clusters
 
 #K-means Clustering 
 set.seed(2)
